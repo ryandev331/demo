@@ -21,6 +21,10 @@ body {
     flex-wrap: wrap;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .sticky {
     position: fixed;
 }
