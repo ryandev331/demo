@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 340px;
+}
+
+.noliststyle {
+    list-style-type: none;
+}
+
+.notextdeco {
+    text-decoration: none;
+}
+
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sticky {
+    position: fixed;
+}
+
+h1.title.sticky {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.cityWrapper.sticky {
+    top: 80px;
+    left: 0;
+    right: 0;
+    background-color: rgb(2, 59, 40);
+    width: 100%;
+    margin: 0;
+    padding-bottom: 10px;
+    /* border-radius: 0 0 5px 5px;
+    box-shadow: 2px 2px #eee; */
+}
+
+.p-relative {
+    position: relative;
+}
+
+.p-absolute {
+    position: absolute;
+}
+
+.slidecontainer {
+    text-align: center;
+    height: 100vh;
+    filter: brightness(50%);
+}
+
+
+/*slideshows  */
+
+.slideshows {
+    overflow: hidden;
+    height: 40vh;
+    width: 100%;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.slideshows img {
+    width: 100%;
+    height: 100%;
+    min-width: 375px;
+    object-fit: cover;
+}
+
+
+/* weather section */
+
+.title {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.title span {
+    margin-left: 15px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.cityWrapper {
+    justify-content: space-evenly;
+}
+
+.search {
+    width: 25%;
+}
+
+select {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+}
+
+ul.six li {
+    padding: 9px;
+    margin: 10px 10px;
+    cursor: pointer;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: blanchedalmond;
+    text-align: center;
+    word-wrap: inherit
+}
+
+.weather .title {
+    font-size: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgb(2, 59, 40);
+    padding: 20px;
+}
+
+.centerBox {
+    width: 80%;
+    margin: 20px auto 0px;
+}
+
+.infoZone {
+    justify-content: center;
+    align-content: center;
+}
+
+.infoZone .cityInfo {
+    flex-wrap: wrap;
+    width: 20%;
+    margin: 25px;
+    height: 150px;
+    background-color: rgb(29, 181, 207);
+    border-radius: 5px;
+}
+
+.cityInfo .cityName {
+    height: 30%;
+    background-color: #eee
+}
+
+.cityInfo .des {
+    height: 70%;
+}
+
+.cityName {
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.des p {
+    text-align: center;
+    padding: 10px;
+}
+
+.des .tempPro {
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+
+
+/*RWD  */
+
+@media screen and (max-width:375px) {
+    .slideshows {
+        height: 25vh;
+    }
+    .weather .title {
+        font-size: 18px;
+    }
+    .search {
+        width: 90%;
+    }
+    .cityWrapper {
+        width: 93%;
+    }
+    ul.six {
+        margin-bottom: 10px;
+        /* justify-content: ; */
+    }
+    ul.six li {
+        width: 25%;
+        margin: 5px 10px;
+    }
+    .infoZone .cityInfo {
+        width: 100%;
+        margin: 25px 0;
+    }
+}
+
+@media screen and (min-width:376px)and (max-width:807px) {
+    .weather .title {
+        font-size: 21px;
+    }
+    .search {
+        width: 80%;
+    }
+    .infoZone .cityInfo {
+        width: 80%;
+    }
+    .centerBox {
+        width: 100%;
+    }
+    ul.six {
+        width: 81%
+    }
+    ul.six li {
+        width: 25%;
+        margin: 5px 10px;
+    }
+}
+
+@media screen and (min-width:807px) and (max-width:1100px) {
+    /* .centerBox {
+        width: 90%;
+    } */
+    .search {
+        width: 75%;
+    }
+    .infoZone .cityInfo {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width:1100px) and (max-width:1400px) {
+    /* .centerBox {
+        width: 90%;
+    } */
+    .search {
+        width: 65%;
+    }
+    .infoZone .cityInfo {
+        width: 30%;
+    }
+}

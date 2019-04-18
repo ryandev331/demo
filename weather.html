@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <!-- 這支是判斷瀏覽器的有無支援CSS、JS等 -->
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="weather.css" />
+    <link rel="icon" type="image/png" sizes="96x96" href="images/logo_96.png" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
+    <title>Weather forecast</title>
+</head>
+
+<body>
+    <div class="slideshows p-relative">
+        <div class="slide p-absolute">
+            <img src="https://picsum.photos/1920/680/?image=43" alt="" />
+        </div>
+        <div class="slide p-absolute">
+            <img src="https://picsum.photos/1920/680/?image=44" alt="" />
+        </div>
+        <div class="slide p-absolute">
+            <img src="https://picsum.photos/1920/680/?image=45" alt="" />
+        </div>
+        <div class="slide p-absolute">
+            <img src="https://picsum.photos/1920/680/?random" alt="" />
+        </div>
+        <div class="slide p-absolute">
+            <img src="https://picsum.photos/1920/680/?image=47" alt="" />
+        </div>
+    </div>
+    <section class="weather">
+
+        <div id="weather">
+            <h1 class="title"><img src="./images/cwbLogo.png" alt="cwb logo" width="65px" height="40px"><span>中央氣象局-全台天氣預測
+                </span>
+            </h1>
+            <div class="d-flex cityWrapper centerBox">
+                <ul class="d-flex six">
+                    <li v-for="(city, idx) in sixCity" @click="checkCity(idx)">
+                        {{ city }}
+                    </li>
+                </ul>
+                <div class="search">
+                    <select name="city" id="citySelection" v-model="selectedCity" @change="cityOption()">
+              <option value="各縣市" >各縣市</option>
+              <option v-for="(city, idx) in allCity" :value="city" >
+                {{ city }}
+              </option>
+            </select>
+                </div>
+            </div>
+            <div class="centerBox">
+                <div class="infoZone d-flex">
+                    <div v-for="(cityData,idx) in allCityData" class="cityInfo">
+                        <div class="cityName d-flex">
+                            <span> {{ cityData.locationName }} </span>
+                            <span>今日18:00 - 明日 06:00</span>
+                        </div>
+                        <div class="des ">
+                            <p>
+                                {{ cityData.weatherElement[0].time[0].parameter.parameterName }}
+                            </p>
+                            <div class="d-flex tempPro">
+                                <span>
+                  {{
+                    cityData.weatherElement[2].time[0].parameter.parameterName
+                  }}℃ ~
+                  {{
+                    cityData.weatherElement[4].time[0].parameter.parameterName
+                  }}℃
+                </span>
+                                <span>
+                  降雨機率:
+                  {{
+                    cityData.weatherElement[1].time[0].parameter.parameterName
+                  }}%
+                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <footer>
+      <h1 class="p-relative ">聯絡資訊&nbsp;</h1>
+      <div class="contactlink d-flex ">
+        <a
+          class="d-flex "
+          href="https://www.facebook.com/profile.php?id=100010542492009 "
+          target="_blank "
+          ><i class="fab fa-facebook-f "></i></a
+        ><a class="d-flex " href="https://twitter.com/tedam33 " target="_blank "
+          ><i class="fab fa-twitter "></i></a
+        ><a
+          class="d-flex "
+          href="https://line.me/ti/p/xKxgisePsB "
+          target="_blank "
+          ><i class="fab fa-line "></i
+        ></a>
+      </div>
+    </footer> -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js " integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin=" anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js " integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js " integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T " crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js "></script>
+    <script>
+        // slideshows
+        //為了怕單一頁面有多個slideshow展示，用each去找每個有slideshows元素
+
+        $('.slideshows').each(function() {
+                let slides = $(this).find('.slide')
+                let slideNum = slides.length
+                let currentIndex = 0
+                slides.eq(currentIndex).fadeIn()
+                setInterval(nextSlide, 3000)
+
+                function nextSlide() {
+                    nextIndex = (currentIndex + 1) % slideNum //取餘數會由0、1、...slideNum循環
+
+                    slides.eq(currentIndex).fadeOut()
+                    slides.eq(nextIndex).fadeIn()
+                    currentIndex = nextIndex
+                }
+            }) // sticky header
+
+        $('section.weather').each(function() {
+            let headerOffsetTop = $(this).offset().top
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > headerOffsetTop) {
+                    document.querySelector('.title').classList.add('sticky')
+                    document.querySelector('.cityWrapper').classList.add('sticky')
+                } else {
+                    document.querySelector('.title').classList.remove('sticky')
+                    document.querySelector('.cityWrapper').classList.remove('sticky')
+                }
+
+                console.log($(window).scrollTop())
+                console.log(headerOffsetTop)
+            })
+
+            $(window).trigger('scroll')
+        })
+
+        // vue
+        const API =
+            'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-2A8CA95B-9EF6-44A9-8427-0095F95E2CA8'
+
+        new Vue({
+            el: '#weather',
+            data: {
+                dataSet: {},
+                sixCity: [
+                    '臺北市',
+                    '新北市',
+                    '桃園市',
+                    '臺中市',
+                    '臺南市',
+                    '高雄市',
+                    '各縣市'
+                ],
+                location: '',
+                allCityData: '',
+                allCityNum: '',
+                allCity: [],
+                selectedCity: '各縣市'
+            },
+            methods: {
+                initData() {
+                    $.get(API).then(data => {;
+                        (this.allCityData = data.records.location),
+                        (this.allCityNum = this.allCityData.length),
+                        (this.allCity = [])
+                        for (i = 0; i < this.allCityNum; i++) {
+                            this.allCity.push(this.allCityData[i].locationName)
+                        }
+                    })
+                },
+                getData() {
+                    $.get(`${API}&locationName=${this.location}`).then(data => {;
+                        (this.allCityData = data.records.location)
+                    })
+
+                },
+                checkCity(idx) {
+                    this.location = this.sixCity[idx]
+                    this.selectedCity = this.sixCity[idx]
+                    console.log(this.location)
+                    if (this.location === '各縣市') {
+                        this.initData()
+                    } else {
+                        this.getData()
+                    }
+                },
+                cityOption() {
+                    this.location = this.selectedCity
+                    console.log(this.location)
+                    if (this.location === '各縣市') {
+                        this.initData()
+                    } else {
+                        this.getData()
+                    }
+                }
+            },
+            mounted() {
+                this.initData()
+            }
+        })
+    </script>
+</body>
+
+</html>
