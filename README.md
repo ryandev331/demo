@@ -8,5 +8,5 @@
 ### Demo
 
 Demo link below:
-https://ryandev331.github.io/demo/weather.html
+https://ryandev331.github.io/weather-forcasting/weather.html
 
